@@ -142,6 +142,53 @@ echo 5 > /proc/sys/vm/dirty_ratio
 This sets the ratio of dirty pages to 5%, meaning that the kernel will start writing dirty pages to disk when the amount of dirty pages exceeds 5% of total memory.
 
 ---
+### Step 5: Modify Kernel Parameters
+
+**Task Requirement:**  
+Please modify the kernel parameters according to the following requirements:
+
+1. Set the maximum TCP data receive buffer to 513920
+2. Set the maximum TCP data send buffer to 513920
+3. Set the system's default FIN_TIMEOUT time to 30s
+4. Set the maximum number of kernel connections to 65535
+5. Set the maximum network interface card (NIC) queue size to 30000
+6. Increase the number of connections waiting for client links to 20000
+7. Configure the allowed system open port range to 1024-65000
+
+### Implementation Steps:  
+You can edit the `/etc/sysctl.conf` configuration file and add the following content:
+
+1. The parameter for the maximum TCP data receive buffer is: `net.core.rmem_max`
+2. The parameter for the maximum TCP data send buffer is: `net.core.wmem_max`
+3. The parameter for the system's default FIN_TIMEOUT time is: `net.ipv4.tcp_fin_timeout`
+4. The parameter for the maximum number of kernel connections is: `net.core.somaxconn`
+5. The parameter for the maximum NIC queue size is: `net.core.netdev_max_backlog`
+6. The parameter for the number of connections waiting for client links is: `net.ipv4.tcp_max_syn_backlog`
+7. The parameter for the allowed system open port range is: `net.ipv4.ip_local_port_range`
+
+### Configuration Example:
+Add the following to the `/etc/sysctl.conf` file:
+
+```plaintext
+net.core.rmem_max = 513920
+net.core.wmem_max = 513920
+net.ipv4.tcp_fin_timeout = 30
+net.core.somaxconn = 65535
+net.core.netdev_max_backlog = 30000
+net.ipv4.tcp_max_syn_backlog = 20000
+net.ipv4.ip_local_port_range = 1024 65000
+```
+
+After modifying the file, apply the changes by running the following command:
+
+```bash
+sysctl -p
+```
+
+This will reload the kernel parameters with the updated values.
+
+---
+
 
 
 
