@@ -1,5 +1,3 @@
-Here's the tidied-up version of your instructions:
-
 ### Linux
 
 1. **Install `sysstat` package:**
