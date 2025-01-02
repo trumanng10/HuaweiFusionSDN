@@ -102,4 +102,46 @@ This command sets the **noop** scheduler for the `/dev/sda1` device, which is co
 
 ---
 
-Would you like more information on different IO schedulers or additional configuration examples?
+### Adjust Disk Queue Depth
+
+**Task Requirement:**  
+Increase the disk queue depth of `/dev/sda1` on the Linux business host to 1024 and provide the configuration.
+
+**Implementation Steps:**  
+The queue depth determines the maximum concurrency of write I/O operations to a block device. For Linux systems, the default value is 128, and typically, it's not recommended to change this parameter. However, during extreme performance testing, to increase the I/O pressure on the host and improve the probability of I/O merging in the queue, this parameter can be appropriately increased. You can modify the `/sys/block/sda1/queue/nr_requests` file (this task specifies `/dev/sda1`; adjust the disk identifier based on the actual system).
+
+**Command to configure:**
+```bash
+echo 1024 > /sys/block/sda1/queue/nr_requests
+```
+
+This command sets the disk queue depth for `/dev/sda1` to 1024, allowing more concurrent I/O operations to be handled.
+
+---
+### Adjust Internal Storage Parameters(Linux)
+### Task Requirement:
+1. To improve the memory access performance of the Linux business host, avoid using swap space as much as possible and reduce the occurrence of hard page faults. Please provide the related configuration.
+2. To reduce memory dirty pages and prevent data loss, the ratio of dirty pages in memory should not exceed 5%. Please provide the related configuration.
+
+### Implementation Steps:
+1. You can configure the `vm.swappiness` parameter in the `/etc/sysctl.conf` file to avoid using swap space as much as possible and reduce the occurrence of hard page faults.
+
+**Add the parameter:**
+```plaintext
+vm.swappiness = 10
+```
+This reduces the likelihood of swapping by setting a low value for `swappiness` (default is 60), meaning the system will try to avoid swapping until necessary.
+
+2. You can configure the ratio of dirty pages in memory by modifying the value of `/proc/sys/vm/dirty_ratio`.
+
+**Command to configure:**
+```bash
+echo 5 > /proc/sys/vm/dirty_ratio
+```
+
+This sets the ratio of dirty pages to 5%, meaning that the kernel will start writing dirty pages to disk when the amount of dirty pages exceeds 5% of total memory.
+
+---
+
+
+
