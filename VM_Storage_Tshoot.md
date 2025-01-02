@@ -1,4 +1,4 @@
-To open the UltraPath Console on a Windows host, follow these steps:
+###To open the UltraPath Console on a Windows host, follow these steps:
 
 1. **Install UltraPath Console:**  
    First, ensure that you have installed UltraPath Console. You can download it from the official Huawei support page:  
