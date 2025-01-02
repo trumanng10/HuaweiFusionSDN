@@ -194,3 +194,77 @@ Let me know if you need a walkthrough on creating or using LUNs on specific plat
 - Backup configurations regularly.
 
 Let me know if you need help with specific parts of this setup!
+
+
+
+To configure a Windows Server to work with a **Fibre Channel (FC)** or **iSCSI** storage system, you'll need to identify the **WWN** (World Wide Name) for Fibre Channel or the **iSCSI Initiator Name** for iSCSI connections. Below are the steps to find both identifiers.
+
+---
+
+### **1. Find the Host's WWN (World Wide Name) for Fibre Channel**
+
+The **WWN** is a unique identifier assigned to a Fibre Channel HBA (Host Bus Adapter) and is used for communication with storage devices. To find the WWN on a Windows Server:
+
+#### Steps:
+1. **Open the Device Manager:**
+   - Press `Windows + X`, and select **Device Manager**.
+
+2. **Locate the Fibre Channel Adapter:**
+   - In the Device Manager, expand the section **Storage Controllers** or **Fiber Channel Adapters**.
+   - Find your **Fibre Channel HBA** (Host Bus Adapter).
+
+3. **View Properties:**
+   - Right-click the Fibre Channel adapter and select **Properties**.
+   
+4. **Find the WWN:**
+   - Under the **Details** tab, select **Physical Device Object Name** from the drop-down menu.
+   - The WWN will be listed as the **Device Object Name**, typically in a format like `fcX:WWN:xx:xx:xx:xx:xx:xx:xx`.
+
+Alternatively, if your server is using Windows Server 2012 or later, you can use **PowerShell** to retrieve the WWN.
+
+#### PowerShell Command:
+```powershell
+Get-WmiObject -Namespace "root\wmi" -Class MSFC_FCAdapterHBAAttributes
+```
+This will output the WWN for each connected Fibre Channel adapter.
+
+---
+
+### **2. Find the iSCSI Initiator Name for iSCSI**
+
+The **iSCSI Initiator Name** is a unique identifier for the iSCSI initiator (the Windows server) when connecting to an iSCSI target. Here's how to find it on Windows Server:
+
+#### Steps:
+1. **Open the iSCSI Initiator:**
+   - Press `Windows + R`, type `iscsicpl`, and press **Enter** to open the **iSCSI Initiator Properties** window.
+
+2. **Check the Initiator Name:**
+   - In the **iSCSI Initiator Properties** window, go to the **Configuration** tab.
+   - You'll see the **Initiator Name** under **iSCSI Initiator Name**. This will typically look like `iqn.1991-05.com.microsoft:servername`.
+
+#### Alternatively, you can retrieve the iSCSI Initiator Name using PowerShell.
+
+#### PowerShell Command:
+```powershell
+Get-IscsiInitiator
+```
+This will display the iSCSI initiator's IQN (iSCSI Qualified Name).
+
+---
+
+### **Summary of Commands for WWN and iSCSI Initiator Name:**
+
+- **WWN for Fibre Channel:**
+  - PowerShell: 
+    ```powershell
+    Get-WmiObject -Namespace "root\wmi" -Class MSFC_FCAdapterHBAAttributes
+    ```
+- **iSCSI Initiator Name:**
+  - PowerShell: 
+    ```powershell
+    Get-IscsiInitiator
+    ```
+
+Once you've located these identifiers (WWN for Fibre Channel or iSCSI Initiator Name for iSCSI), you can proceed to configure LUN mappings or zoning on your storage system accordingly.
+
+Let me know if you'd like assistance with further steps!
