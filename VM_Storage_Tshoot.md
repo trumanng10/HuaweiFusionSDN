@@ -1,6 +1,6 @@
-###To open the UltraPath Console on a Windows host, follow these steps:
+### **Path Connection Checking**
 
-1. **Install UltraPath Console:**  
+1. **Install UltraPath Console:(Window)**  
    First, ensure that you have installed UltraPath Console. You can download it from the official Huawei support page:  
    [UltraPath Console Installation Guide](https://support.huawei.com/enterprise/en/storage/ultrapath-pid-8576127/software/)
    - (https://support.huawei.com/enterprise/en/doc/EDOC1000105151/b710b47f/introduction-to-ultrapath-console)
@@ -26,4 +26,8 @@
 6. **Check Link Status:**
    - Once the UltraPath Console is open, you should be able to view the status of your paths, controllers, and any link issues in the console window.
 
+
+On a Linux host, you can check the status of physical paths by running the `upadmin show path` command.
+
+- The "Path State" indicates the link status, where "Normal" means the path is functioning properly.
 
