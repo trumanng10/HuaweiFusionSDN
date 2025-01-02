@@ -1,5 +1,3 @@
-**Performance Issues:**
-
 ### **CPU Throttling (Frequency Scaling)**
 
 **Explanation:**
@@ -86,4 +84,22 @@ In Windows, users can check the current CPU frequency and other hardware informa
 
 ---
 
-This method is simple and provides a quick view of the current CPU frequency. If you have any further questions about CPU performance monitoring or diagnostics, feel free to ask!
+
+### Adjust IO Scheduler Algorithm
+
+**Task Requirement:**  
+The `/dev/sda1` on the Linux business host is a solid-state drive (SSD). Please choose an appropriate IO scheduler algorithm and provide the configuration.
+
+**Implementation Steps:**  
+Linux operating systems support four block device scheduling algorithms: noop, anticipatory, deadline, and cfq. These algorithms can be configured in the `/sys/block/sda1/queue/scheduler` file (this task specifies the configuration for `/dev/sda1`; adjust the disk identifier according to the actual system).
+
+**Command to configure:**
+```bash
+echo noop > /sys/block/sda1/queue/scheduler
+```
+
+This command sets the **noop** scheduler for the `/dev/sda1` device, which is commonly chosen for SSDs due to its simplicity and efficiency with solid-state storage.
+
+---
+
+Would you like more information on different IO schedulers or additional configuration examples?
