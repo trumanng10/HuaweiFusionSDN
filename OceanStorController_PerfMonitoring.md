@@ -1,6 +1,6 @@
 **Performance Issues:**
 
-### **#CPU Throttling (Frequency Scaling)**
+### **CPU Throttling (Frequency Scaling)**
 
 **Explanation:**
 CPU throttling, or frequency scaling, is the process of reducing the operating frequency of a CPU to reduce its power consumption and heat generation. This technique is commonly used to manage energy efficiency, prevent overheating, or maintain system stability during heavy workloads or high temperatures.
